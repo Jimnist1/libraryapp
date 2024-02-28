@@ -1,4 +1,40 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: aqua;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+.containerLeft {
+  background-color: white;
+  padding: 20px;
+  height: 100vh;
+  border-radius: 15px;
+  box-shadow: 5px 5px rgb(112, 112, 112);
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+}
+.containerRight {
+  padding: 20px;
+  grid-column: 2;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+}
+.libraryTitle {
+  font-size: 80px;
+  align-self: center;
+  justify-self: center;
+}
+#outputContainer {
+  background-color: white;
+  padding: 20px;
+  border: 5px rgb(112, 112, 112) solid;
+  border-radius: 15px;
+}
+.card {
+}
 ::backdrop {
-  background-image: linear-gradient(45deg, rgb(56, 159, 194) rgb(122, 117, 117));
+  background-color: rgb(219, 236, 241);
   opacity: 0.75;
 }
