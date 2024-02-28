@@ -1,8 +1,8 @@
 const myLibrary = [];
-const titleEntry = document.getElementById("bookTitle");
-const authorEntry = document.getElementById("bookAuthor");
-const pageNumEntry = document.getElementById("bookPages");
-const buttons = document.querySelectorAll("button");
+const titleEntry = document.getElementById("title");
+const authorEntry = document.getElementById("author");
+const pageNumEntry = document.getElementById("pages");
+
 
 function Book(title, author, pages) {
   this.title = title;
@@ -25,25 +25,32 @@ function deleteBook(i) {
   myLibrary.splice(i, 1);
   displayBooks(myLibrary);
 }
-buttons.forEach((button) => {
-  button.addEventListener("click", () => {
+function findPosition(buttonID) {
+  return buttonID.slice(-1);
+}
+document.body.addEventListener("click", function (event) {
+  if (event.target.id == "createNewBook") {
     addBookToLibrary(titleEntry.value, authorEntry.value, pageNumEntry.value);
-  });
+  } else if (event.target.class == "btnGen") {
+    idRemove = findPosition(event.target.id);
+    deleteBook(idRemove);
+  }
 });
 function displayBooks(books) {
   let container = document.getElementById("outputContainer");
   removeAllChildNodes(container);
   books.forEach((book) => {
     let newEl = document.createElement("div");
+    let bookIndex = books.indexOf(book);
     newEl.className = "card";
-    newEl.id = "card" + books.indexOf(book);
+    newEl.id = "card" + bookIndex;
     newEl.textContent = book.title + ", " + book.author + ", " + book.pages;
     let newButton = document.createElement("button");
-    newButton.id = "button" + books.indexOf(book);
+    newButton.class = "btnGen";
+    newButton.id = "button" + bookIndex;
     newButton.textContent = "X";
     container.appendChild(newEl);
     container.appendChild(newButton);
-    // newButton.addEventListener("click", deleteBook(books.indexOf(book)));
   });
 }
 
