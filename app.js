@@ -2,7 +2,7 @@ const myLibrary = [];
 const titleEntry = document.getElementById("title");
 const authorEntry = document.getElementById("author");
 const pageNumEntry = document.getElementById("pages");
-
+const dialog = document.querySelector("dialog");
 
 function Book(title, author, pages) {
   this.title = title;
@@ -29,8 +29,15 @@ function findPosition(buttonID) {
   return buttonID.slice(-1);
 }
 document.body.addEventListener("click", function (event) {
-  if (event.target.id == "createNewBook") {
+  if (event.target.id == "openForm") {
+    dialog.showModal();
+  } else if (event.target.id == "createNewBook") {
     addBookToLibrary(titleEntry.value, authorEntry.value, pageNumEntry.value);
+    event.preventDefault();
+    dialog.close();
+  } else if (event.target.id == "cancelForm") {
+    event.preventDefault();
+    dialog.close();
   } else if (event.target.class == "btnGen") {
     idRemove = findPosition(event.target.id);
     deleteBook(idRemove);
