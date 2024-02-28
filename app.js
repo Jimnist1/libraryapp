@@ -38,7 +38,7 @@ document.body.addEventListener("click", function (event) {
   } else if (event.target.id == "cancelForm") {
     event.preventDefault();
     dialog.close();
-  } else if (event.target.class == "btnGen") {
+  } else if (event.target.className == "btnGen") {
     idRemove = findPosition(event.target.id);
     deleteBook(idRemove);
   }
@@ -47,18 +47,27 @@ function displayBooks(books) {
   let container = document.getElementById("outputContainer");
   removeAllChildNodes(container);
   books.forEach((book) => {
-    let newEl = document.createElement("div");
+    let newContainer = document.createElement("div");
     let bookIndex = books.indexOf(book);
-    newEl.className = "card";
-    newEl.id = "card" + bookIndex;
-    newEl.textContent = book.title + ", " + book.author + ", " + book.pages;
+    newContainer.className = "card";
+    newContainer.id = "card" + bookIndex;
+    container.appendChild(newContainer);
+    let bookText = document.createElement("div");
+    bookText.className = "bookTextContainer";
+    newContainer.appendChild(bookText);
+    let bookTitle = document.createElement("div");
+    bookTitle.textContent = "Title: " + book.title;
+    bookText.appendChild(bookTitle);
+    let bookAuthor = document.createElement("div");
+    bookAuthor.textContent = "Author: " + book.author;
+    bookText.appendChild(bookAuthor);
+    let bookPages = document.createElement("div");
+    bookPages.textContent = "Page count: " + book.pages;
+    bookText.appendChild(bookPages);
     let newButton = document.createElement("button");
-    newButton.class = "btnGen";
+    newButton.className = "btnGen";
     newButton.id = "button" + bookIndex;
-    newButton.textContent = "X";
-    container.appendChild(newEl);
-    container.appendChild(newButton);
+    newButton.textContent = "Remove Book";
+    newContainer.appendChild(newButton);
   });
 }
-
-addBookToLibrary("Demo", "James", 310);
