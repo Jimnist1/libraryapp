@@ -57,12 +57,15 @@ function displayBooks(books) {
     newContainer.appendChild(bookText);
     let bookTitle = document.createElement("div");
     bookTitle.textContent = '"' + book.title + '"';
+    bookTitle.className = "cardText";
     bookText.appendChild(bookTitle);
     let bookAuthor = document.createElement("div");
     bookAuthor.textContent = book.author;
+    bookAuthor.className = "cardText";
     bookText.appendChild(bookAuthor);
     let bookPages = document.createElement("div");
     bookPages.textContent = book.pages + " pages";
+    bookPages.className = "cardText";
     bookText.appendChild(bookPages);
     let newButton = document.createElement("button");
     newButton.className = "btnGen";
