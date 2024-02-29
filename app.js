@@ -1,8 +1,10 @@
+//Variables
 const myLibrary = [];
 const titleEntry = document.getElementById("title");
 const authorEntry = document.getElementById("author");
 const pageNumEntry = document.getElementById("pages");
 const dialog = document.querySelector("dialog");
+const bookForm = document.querySelector("form");
 
 function Book(title, author, pages) {
   this.title = title;
@@ -10,9 +12,9 @@ function Book(title, author, pages) {
   this.pages = pages;
 }
 
+//Creation and deletion
 function addBookToLibrary(title, author, pages) {
   const bookEntry = new Book(title, author, pages);
-  console.log(bookEntry);
   myLibrary.push(bookEntry);
   displayBooks(myLibrary);
 }
@@ -28,21 +30,29 @@ function deleteBook(i) {
 function findPosition(buttonID) {
   return buttonID.slice(-1);
 }
+
+//Events
 document.body.addEventListener("click", function (event) {
   if (event.target.id == "openForm") {
     dialog.showModal();
-  } else if (event.target.id == "createNewBook") {
-    addBookToLibrary(titleEntry.value, authorEntry.value, pageNumEntry.value);
-    event.preventDefault();
-    dialog.close();
   } else if (event.target.id == "cancelForm") {
     event.preventDefault();
     dialog.close();
+    bookForm.reset();
   } else if (event.target.className == "btnGen") {
     idRemove = findPosition(event.target.id);
     deleteBook(idRemove);
   }
 });
+submitBook = (e) => {
+  addBookToLibrary(titleEntry.value, authorEntry.value, pageNumEntry.value);
+  e.preventDefault();
+  dialog.close();
+  bookForm.reset();
+};
+bookForm.onsubmit = submitBook;
+
+//Display
 function displayBooks(books) {
   let container = document.getElementById("outputContainer");
   removeAllChildNodes(container);

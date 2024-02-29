@@ -19,18 +19,18 @@
           </p>
           <p>Feel free to login to save your books!!</p>
         </div>
-        <button id="openForm">
-          <p>+ Add Book</p>
-        </button>
+        <button id="openForm">+ Add Book</button>
       </div>
     </div>
     <dialog>
-      <form id="bookInfo" action="#" method="post" onsubmit="">
+      <form id="bookInfo" action="page_submission_URL" method="post">
         <input
           class="inputDiv"
           type="text"
           name="title"
           id="title"
+          required
+          maxlength="100"
           placeholder="Title"
         />
         <input
@@ -38,6 +38,8 @@
           type="text"
           name="author"
           id="author"
+          required
+          maxlength="100"
           placeholder="Author"
         />
         <input
@@ -45,6 +47,8 @@
           type="number"
           name="pages"
           id="pages"
+          required
+          maxlength="10"
           placeholder="Page count"
         />
         <div>
