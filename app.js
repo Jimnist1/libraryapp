@@ -56,13 +56,13 @@ function displayBooks(books) {
     bookText.className = "bookTextContainer";
     newContainer.appendChild(bookText);
     let bookTitle = document.createElement("div");
-    bookTitle.textContent = "Title: " + book.title;
+    bookTitle.textContent = '"' + book.title + '"';
     bookText.appendChild(bookTitle);
     let bookAuthor = document.createElement("div");
-    bookAuthor.textContent = "Author: " + book.author;
+    bookAuthor.textContent = book.author;
     bookText.appendChild(bookAuthor);
     let bookPages = document.createElement("div");
-    bookPages.textContent = "Page count: " + book.pages;
+    bookPages.textContent = book.pages + " pages";
     bookText.appendChild(bookPages);
     let newButton = document.createElement("button");
     newButton.className = "btnGen";
