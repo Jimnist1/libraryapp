@@ -3,20 +3,23 @@ const myLibrary = [];
 const titleEntry = document.getElementById("title");
 const authorEntry = document.getElementById("author");
 const pageNumEntry = document.getElementById("pages");
+const readStatus = document.getElementById("read");
 const dialog = document.querySelector("dialog");
 const bookForm = document.querySelector("form");
 
-function Book(title, author, pages) {
+function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
+  this.read = read;
 }
 
 //Creation and deletion
-function addBookToLibrary(title, author, pages) {
-  const bookEntry = new Book(title, author, pages);
+function addBookToLibrary(title, author, pages, read) {
+  const bookEntry = new Book(title, author, pages, read);
   myLibrary.push(bookEntry);
   displayBooks(myLibrary);
+  console.log(myLibrary);
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -32,6 +35,11 @@ function findPosition(buttonID) {
 }
 
 //Events
+function toggleRead(readID) {
+  let targetBook = myLibrary[readID];
+  let isToggled = targetBook.read;
+  targetBook["read"] = !isToggled;
+}
 document.body.addEventListener("click", function (event) {
   if (event.target.id == "openForm") {
     dialog.showModal();
@@ -39,13 +47,23 @@ document.body.addEventListener("click", function (event) {
     event.preventDefault();
     dialog.close();
     bookForm.reset();
-  } else if (event.target.className == "btnGen") {
-    idRemove = findPosition(event.target.id);
+  } else if (event.target.className == "bookRemoveBtn") {
+    let idRemove = findPosition(event.target.id);
     deleteBook(idRemove);
+  } else if (event.target.id == "buttonRead" || "buttonUnread") {
+    let readID = findPosition(event.target.id);
+    toggleRead(readID);
+    console.log(myLibrary);
+    displayBooks(myLibrary);
   }
 });
 submitBook = (e) => {
-  addBookToLibrary(titleEntry.value, authorEntry.value, pageNumEntry.value);
+  addBookToLibrary(
+    titleEntry.value,
+    authorEntry.value,
+    pageNumEntry.value,
+    readStatus.checked
+  );
   e.preventDefault();
   dialog.close();
   bookForm.reset();
@@ -77,10 +95,21 @@ function displayBooks(books) {
     bookPages.textContent = book.pages + " pages";
     bookPages.className = "cardText";
     bookText.appendChild(bookPages);
-    let newButton = document.createElement("button");
-    newButton.className = "btnGen";
-    newButton.id = "button" + bookIndex;
-    newButton.textContent = "Remove Book";
-    newContainer.appendChild(newButton);
+    let buttonRemove = document.createElement("button");
+    buttonRemove.className = "bookRemoveBtn";
+    buttonRemove.id = "button" + bookIndex;
+    buttonRemove.textContent = "Remove Book";
+    newContainer.appendChild(buttonRemove);
+    let readButton = document.createElement("button");
+    newContainer.appendChild(readButton);
+    if (book.read == true) {
+      readButton.className = "readButton";
+      readButton.id = "buttonRead" + bookIndex;
+      readButton.textContent = "Read";
+    } else if (book.read == false) {
+      readButton.className = "unreadButton";
+      readButton.id = "buttonUnread" + bookIndex;
+      readButton.textContent = "Unread";
+    }
   });
 }
