@@ -36,9 +36,7 @@ function findPosition(buttonID) {
 
 //Events
 function toggleRead(readID) {
-  let targetBook = myLibrary[readID];
-  let isToggled = targetBook.read;
-  targetBook["read"] = !isToggled;
+  myLibrary[readID]["read"] = !myLibrary[readID].read;
 }
 document.body.addEventListener("click", function (event) {
   if (event.target.id == "openForm") {
